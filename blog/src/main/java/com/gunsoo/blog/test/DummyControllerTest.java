@@ -1,8 +1,13 @@
 package com.gunsoo.blog.test;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -59,8 +64,23 @@ public class DummyControllerTest {
 		return user;
 	}
 	
+	//회원전체 조회 
+	@GetMapping("/users")
+	public List<User> list(){
+		//findAll -> 전체 select
+		List<User> list = userRepository.findAll();
+		return list;
+	}
 	
-	
+	//한페이지당 2건에 데이터를 리턴받아 볼 예정 
+	@GetMapping("/user")
+	public List<User> pageList(@PageableDefault(size = 2, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
+		Page<User> pagingUser = userRepository.findAll(pageable);
+		
+		List<User> users = pagingUser.getContent();
+		
+		return users;
+	}
 	
 	
 }
