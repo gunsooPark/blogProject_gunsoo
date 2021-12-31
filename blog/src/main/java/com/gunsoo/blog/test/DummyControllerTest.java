@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -89,7 +90,7 @@ public class DummyControllerTest {
 	//save함수는 id를 전달하지 않으면 insert를 함 
 	//save함수는 id를 전달하면 해당 id에 대한 데이터가 있으면 update해줌 
 	// 업데이트
-	@Transactional
+	@Transactional //함수 종료시에 자동으로 commit이 된다. 
 	@PutMapping("/user/{id}")
 	public User updateUser(@PathVariable int id, @RequestBody User requestUser) {
 		System.out.println("id : " + id);
@@ -109,8 +110,28 @@ public class DummyControllerTest {
 		
 		
 		//더디 체킹 
-		
-		return null;
+		return user;
 	}
 
+	//회원 삭제 
+	@DeleteMapping("/user/{id}")
+	public String delete(@PathVariable int id) {
+		
+		//해당 아이디가 없을 수 있으므로 try~catch문으로 예외를 걸어야됨 
+		try {
+			userRepository.deleteById(id);
+		} catch (Exception e) {
+			return "삭제에 실패하였습니다. 해당 id는 DB에 없습니다";
+		}
+		
+		
+		return "삭제되었습니다.";
+	}
+
+	
+	
+	
+	
+	
+	
 }
