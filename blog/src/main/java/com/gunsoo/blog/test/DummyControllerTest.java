@@ -51,11 +51,10 @@ public class DummyControllerTest {
 		// 그러면 return값이 null이 되므로, 프로그램에서 문제가 생김
 		// 이를 방지하기 위해 Optional로 너의 User 객체를 감싸서 가져올테니깐 null인지 아닌지 판단해서 return 해라
 
-		// select 하나 조회 -> findById
+		// select 하나 조회 -> findById -> 해당아이디가 없을 수 있으므로 예외발생
 		User user = userRepository.findById(id).orElseThrow(new Supplier<IllegalArgumentException>() {
 			@Override
 			public IllegalArgumentException get() {
-				// TODO Auto-generated method stub
 				return new IllegalArgumentException("해당 유저는 없습니다. id : " + id);
 			}
 		});

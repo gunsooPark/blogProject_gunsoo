@@ -31,7 +31,7 @@ public class User {
 	@GeneratedValue(strategy =  GenerationType.IDENTITY) //프로젝트에서 연결된 DB의 넘버링 전략을 따라간다. 
 	private int id; //시퀀스-오라클, auto_increment-Mysql
 	
-	@Column(nullable = false, length = 30)//not null, 길이 30
+	@Column(nullable = false, length = 30, unique = true)//not null, 길이 30
 	private String username; //아아디
 	
 	@Column(nullable = false, length = 100)//not null, 길이 100
