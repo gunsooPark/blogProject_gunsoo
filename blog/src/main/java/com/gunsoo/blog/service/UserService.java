@@ -1,9 +1,10 @@
 package com.gunsoo.blog.service;
 
-import javax.transaction.Transactional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.gunsoo.blog.model.User;
 import com.gunsoo.blog.repository.UserRepository;
@@ -14,21 +15,19 @@ public class UserService {
 
 	@Autowired
 	private UserRepository userRepository;
-	
-	//회원가입
+
+	// 회원가입
 	@Transactional
-	public int save(User user) {
-		//예외가 발생할 수 있으므로 try~catch문 사용 
-		try {
-			userRepository.save(user);
-			return 1;
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("UserService : 회원가입 오류발생");
-		}
-		return -1;
-	}//end save
-	
-	
-	
+	public void save(User user) {
+		userRepository.save(user);
+	}// end save
+
+	// 로그인
+	/*
+	 * @Transactional(readOnly = true)// Select할 때 트랜잭션 시작, 서비스 종료시에 트랜잭선 종료(정합성)
+	 * public User login(User user) { return
+	 * userRepository.findByUsernamAndPassword(user.getUsername(),
+	 * user.getPassword()); }
+	 */
+
 }
