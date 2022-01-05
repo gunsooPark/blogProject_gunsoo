@@ -7,13 +7,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class UserController {
 
 	//회원가입 화면 
-	@GetMapping("/user/joinForm")
+	@GetMapping("/joinForm")
 	public String joinForm() {
 		return "user/joinForm";
 	}
 	
 	//로그인화면 
-	@GetMapping("/user/loginForm")
+	@GetMapping("/loginForm")
 	public String loginForm() {
 		return "user/loginForm";
 	}
