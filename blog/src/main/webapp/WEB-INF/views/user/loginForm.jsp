@@ -7,7 +7,7 @@
 	<form>
 
 		<div class="form-group">
-			<label for="email">Email</label> <input type="email" class="form-control" placeholder="ex) hong@naver.com" id="email">
+			<label for="Username">Username</label> <input type="type" class="form-control" placeholder="아이디 입력" id="username">
 		</div>
 
 		<div class="form-group">

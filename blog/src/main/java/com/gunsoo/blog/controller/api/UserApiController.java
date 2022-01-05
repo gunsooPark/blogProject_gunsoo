@@ -1,5 +1,7 @@
 package com.gunsoo.blog.controller.api;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,9 @@ public class UserApiController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private HttpSession session;
+	
 	//회원가입 
 	@PostMapping("/user")
 	public ResponseEntity<Integer>  save(@RequestBody User user) {
@@ -34,9 +39,10 @@ public class UserApiController {
 	@PostMapping("/user/login")
 	public ResponseEntity<Integer> login(@RequestBody User user){
 		System.out.println("UserApiController : login 호출 ");
-		//User principal = userService.login(user);
-		
-		
+		User principal = userService.login(user);
+		if(principal != null) {
+			session.setAttribute("principal", principal);
+		}
 		
 		return new ResponseEntity<Integer>(1, HttpStatus.OK);
 		
